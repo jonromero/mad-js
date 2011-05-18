@@ -12,13 +12,10 @@
     REPL
     <input onclick="play();" type="button" value="Go" /><br />
     <textarea class="code" id="code_textarea" style="width: 650px; height: 166px;font-size: 13px;">
-    var frequency = 440;                      // 440 Hz = "A" note
-    var samples_length = 44100;               // Plays for 1 second (44.1 KHz)
-    for (var i=0; i < samples_length ; i++) { 
-	    var t = i/samples_length;               
-	    samples[i] = sin( frequency * 2*PI*t ); 
-	    samples[i] *= (1-t);                    
-    }
+note = 440;
+time = 1;
+    
+playNote(note, time);
 </textarea> <br />
 
 </body> 

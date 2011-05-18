@@ -2,7 +2,8 @@ Lets see if we can play around with HTML 5.0 sound and create a clojure/lisp tha
 so we can have fun with music-as-data (mad.emotionull.com).
 
 Steps:
-* TODO HTML 5.0 sound demo
+* DONE HTML 5.0 sound demo
+* DONE REPL on browser 
+* TODO Create timings
 * TODO Lisp On browser (search for similar projects)
-* TODO REPL on browser 
 * TODO Gist on browser

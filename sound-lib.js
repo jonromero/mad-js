@@ -29,10 +29,6 @@ function normalize_invalid_values(samples) {
 }
 
 function play() {
-    sampleRate = 44100;
-    //  var samples_length = sampleRate; // divide by 2 ???
-    var samples = [] //new Float32Array(samples_length);
-    
     var code = $('#code_textarea').val();
     
     try {
@@ -40,24 +36,7 @@ function play() {
     } catch (e) {
 	result_error = 'ERROR: '+e;
 	alert(result_error);
-    }
-    
-    if (samples.length==0) {
-	alert("ERROR: No values in array 'samples'");
-	return;
-    }
-    
-    normalize_invalid_values(samples); // keep samples between [-1, +1]
-    
-    var wave = new RIFFWAVE();
-    wave.header.sampleRate = sampleRate;
-    wave.header.numChannels = 1;
-    var audio = new Audio();
-    var samples2=convert255(samples);
-    wave.Make(samples2);
-    audio.src=wave.dataURI;
-    setTimeout(function() { audio.play(); }, 10); // page needs time to load?
-    
+    }    
 }
 
 function convert255(data) {
@@ -68,10 +47,37 @@ function convert255(data) {
     return data_0_255;
 }
 
-function playNote(note, time) {
-    return noteToFreq(note, time);
+function createSample(freq, sec) {
+    var samples = [];
+    var length = sec * 44100; 
+
+    for (var i=0; i < length ; i++) { 
+	var t = i/length;               
+	samples[i] = sin(freq * 2*PI*t); 
+	samples[i] *= (1-t);                    
+    }
+    
+    return samples;
 }
 
+function playNote(note, length) {
+    var sampleRate = 44100;
+    var sample = createSample(note, length);
+
+    normalize_invalid_values(sample); // keep samples between [-1, +1]
+    
+    var wave = new RIFFWAVE();
+    wave.header.sampleRate = sampleRate;
+    wave.header.numChannels = 1;
+
+    var audio = new Audio();
+    var con_sample=convert255(sample);
+
+    wave.Make(con_sample);
+    audio.src=wave.dataURI;
+    setTimeout(function() { audio.play(); }, 10); // page needs time to load?
+
+}
 
 
 $(function () {
