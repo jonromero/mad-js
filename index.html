@@ -1,0 +1,26 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+    <script type='text/javascript' src='http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js?ver=1.5.2'></script>
+    <script src="http://www.js.do/sound/js/riffwave.js"></script>
+    <script type='text/javascript' src='sound-lib.js'></script>
+</head> 
+<body> 
+
+<p>
+    REPL
+    <input onclick="play();" type="button" value="Go" /><br />
+    <textarea class="code" id="code_textarea" style="width: 650px; height: 166px;font-size: 13px;">
+    var frequency = 440;                      // 440 Hz = "A" note
+    var samples_length = 44100;               // Plays for 1 second (44.1 KHz)
+    for (var i=0; i < samples_length ; i++) { 
+	    var t = i/samples_length;               
+	    samples[i] = sin( frequency * 2*PI*t ); 
+	    samples[i] *= (1-t);                    
+    }
+</textarea> <br />
+
+</body> 
+</html> 
+ 
